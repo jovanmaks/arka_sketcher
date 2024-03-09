@@ -13,16 +13,16 @@ import bpy
 from . import operators, ui, properties
 
 def register():
-    bpy.utils.register_class(operators.SimpleOperator)
-    bpy.utils.register_class(ui.SimplePanel)
-    bpy.utils.register_class(properties.SimplePropertyGroup)
-    bpy.types.Scene.my_simple_properties = bpy.props.PointerProperty(type=properties.SimplePropertyGroup)
+    operators.register()
+    ui.register()
+    properties.register()
 
 def unregister():
-    bpy.utils.unregister_class(operators.SimpleOperator)
-    bpy.utils.unregister_class(ui.SimplePanel)
-    bpy.utils.unregister_class(properties.SimplePropertyGroup)
-    del bpy.types.Scene.my_simple_properties
+    operators.unregister()
+    ui.unregister()
+    properties.unregister()
+
+
 
 if __name__ == "__main__":
     register()

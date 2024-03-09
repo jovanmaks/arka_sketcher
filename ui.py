@@ -2,20 +2,11 @@
 import bpy
 
 # Step 1: Property Registration
-def register_properties():
-    bpy.types.Scene.my_width = bpy.props.IntProperty(name="Width")
-    bpy.types.Scene.my_height = bpy.props.IntProperty(name="Height")
-    bpy.types.Scene.my_module = bpy.props.FloatProperty(name="Module")
-
-def unregister_properties():
-    del bpy.types.Scene.my_width
-    del bpy.types.Scene.my_height
-    del bpy.types.Scene.my_module
 
 # Step 2: Panel UI
 class SimplePanel(bpy.types.Panel):
     """Creates a Panel in the 3D Viewport UI"""
-    bl_label = "Simple Panel"
+    bl_label = "Grid Panel"
     bl_idname = "OBJECT_PT_simple"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -23,26 +14,36 @@ class SimplePanel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
-        scene = context.scene
 
-        # Your existing operator/button
-        layout.operator("object.simple_operator")
 
-        # Additional UI elements for width, height, and module
-        layout.prop(scene, "my_width", text="Width")
-        layout.prop(scene, "my_height", text="Height")
-        layout.prop(scene, "my_module", text="Module")
+        row = layout.row()
+        row.operator("object.create_grid")
 
-# Assuming you already have a SimpleOperator class or similar for handling the button action
+        layout.separator()
+
+        row = layout.row()
+        row.prop(context.scene, "grid_width", text="Width (units)")
+        row.prop(context.scene, "grid_height", text="Height (units)")
+        row.prop(context.scene, "modul", text="Modul")
+
+        layout.separator()
+
+        row = layout.row()
+        row.operator("object.place_element")
+
 
 # Register and Unregister Functions
 def register():
     bpy.utils.register_class(SimplePanel)
-    register_properties()
+    bpy.types.Scene.grid_width = bpy.props.IntProperty(name="Grid Width")
+    bpy.types.Scene.grid_height = bpy.props.IntProperty(name="Grid Height")
+    bpy.types.Scene.modul = bpy.props.IntProperty(name="Modul")
 
 def unregister():
     bpy.utils.unregister_class(SimplePanel)
-    unregister_properties()
+    del bpy.types.Scene.grid_width
+    del bpy.types.Scene.grid_height
+    del bpy.types.Scene.modul
 
 if __name__ == "__main__":
     register()
