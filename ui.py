@@ -1,7 +1,13 @@
  
 import bpy
 
-# Step 1: Property Registration
+
+element_items = [
+    ('BNF', "Wall", "PackingBin.BNF"),
+    ('BFF', "Window", "PackingBin.BFF"),
+    ('BBF', "Door", "PackingBin.BBF"),
+]
+
 
 # Step 2: Panel UI
 class SimplePanel(bpy.types.Panel):
@@ -31,6 +37,22 @@ class SimplePanel(bpy.types.Panel):
         row = layout.row()
         row.operator("object.place_element")
 
+        layout.separator()
+
+
+        # Dropdown for mode
+        row = layout.row()
+        row.prop(context.scene, "element", text="Element")
+
+        layout.separator()
+        row = layout.row()
+        row.operator("object.evaluate_space")
+
+
+        layout.separator()
+        row = layout.row()
+        row.operator("object.import_space")
+        row.operator("object.export_space")
 
 # Register and Unregister Functions
 def register():
@@ -39,11 +61,15 @@ def register():
     bpy.types.Scene.grid_height = bpy.props.IntProperty(name="Grid Height")
     bpy.types.Scene.modul = bpy.props.IntProperty(name="Modul")
 
+    bpy.types.Scene.element = bpy.props.EnumProperty(items=element_items)
+
 def unregister():
     bpy.utils.unregister_class(SimplePanel)
     del bpy.types.Scene.grid_width
     del bpy.types.Scene.grid_height
     del bpy.types.Scene.modul
+
+    del bpy.types.Scene.element
 
 if __name__ == "__main__":
     register()
