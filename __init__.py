@@ -1,10 +1,9 @@
- 
 bl_info = {
-    "name": "Arka_Sketcher",
+    "name": "Arka",
     "description": "Plugin for making floorplans",
     "author": "Noah",
     "version": (1, 0),
-    "blender": (3, 6, 4),
+    "blender": (4, 0, 2),
     "location": "Properties > Render > My Awesome Panel",
     "support": "COMMUNITY",
     "category": "Organization"
