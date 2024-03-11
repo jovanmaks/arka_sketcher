@@ -59,7 +59,8 @@ def register():
     bpy.utils.register_class(SimplePanel)
     bpy.types.Scene.grid_width = bpy.props.IntProperty(name="Grid Width")
     bpy.types.Scene.grid_height = bpy.props.IntProperty(name="Grid Height")
-    bpy.types.Scene.modul = bpy.props.IntProperty(name="Modul")
+    # bpy.types.Scene.modul = bpy.props.IntProperty(name="Modul")
+    bpy.types.Scene.modul = bpy.props.FloatProperty(name="Module", description="Size of each tile in meters", default=1.0, min=0.01, max=100.0, precision=2)
 
     bpy.types.Scene.element = bpy.props.EnumProperty(items=element_items)
 
